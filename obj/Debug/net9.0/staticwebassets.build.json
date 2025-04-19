@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "3oU6T0s1N6pVPmI0ncJZXU/WbLYzbuZZbK1RC1t1aOs=",
+  "Source": "backend_net",
+  "BasePath": "_content/backend_net",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
