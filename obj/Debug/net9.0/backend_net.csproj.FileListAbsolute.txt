@@ -104,3 +104,4 @@ E:\CURSOS\React\AplicationNETReact\backend_net\bin\Debug\net9.0\tr\Microsoft.Cod
 E:\CURSOS\React\AplicationNETReact\backend_net\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\CURSOS\React\AplicationNETReact\backend_net\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 E:\CURSOS\React\AplicationNETReact\backend_net\obj\Debug\net9.0\backend_net.sourcelink.json
+E:\CURSOS\React\AplicationNETReact\backend_net\bin\Debug\net9.0\BCrypt.Net-Next.dll

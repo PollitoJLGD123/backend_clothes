@@ -27,6 +27,7 @@ public class PedidoProveedor
     [Required]
     [MaxLength(50)]
     [AllowedValues("Pendiente", "Enviado", "Recibido", "Anulado")]
+    [Column(TypeName = "ENUM('Pendiente', 'Enviado', 'Recibido', 'Anulado')")]
     public required string Estado { get; set; }
 
     public ICollection<DetallePedido> DetallesPedidos { get; set; } = new List<DetallePedido>();

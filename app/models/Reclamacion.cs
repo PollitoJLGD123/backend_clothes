@@ -58,7 +58,6 @@ public class Reclamacion
 
     [AllowNull]
     [Column(TypeName = "datetime")]
-    [DefaultValue(typeof(DateTime), "GETDATE()")]
     public DateTime FechaSolicitud { get; set; } = DateTime.Now;
 }
 
