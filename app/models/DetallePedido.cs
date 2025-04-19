@@ -21,14 +21,16 @@ public class DetallePedido
     public required int IdPedidoProveedor { get; set; }
 
     [ForeignKey("IdPedidoProveedor")]
-    public required PedidoProveedor PedidoProveedor { get; set; }
+    [AllowNull]
+    public PedidoProveedor PedidoProveedor { get; set; }
 
     [Required]
     //[ForeignKey("Prendas")]
     public required int IdPrenda { get; set; }
 
     [ForeignKey("IdPrenda")]
-    public required Prenda Prenda { get; set; }
+    [AllowNull]
+    public Prenda Prenda { get; set; }
 }
 
 //NotMapped

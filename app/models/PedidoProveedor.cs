@@ -19,9 +19,10 @@ public class PedidoProveedor
     public DateTime FechaPedido { get; set; }
 
     [ForeignKey("IdProveedor")]
-    public required Proveedor Proveedor { get; set; }
+    [AllowNull]
+    public Proveedor Proveedor { get; set; }
     [Required]
-    public int IdProveedor { get; set; }
+    public required int IdProveedor { get; set; }
 
     [Required]
     [MaxLength(50)]

@@ -37,25 +37,31 @@ public class Prenda{
     //[ForeignKey("Marcas")]
     public required int IdMarca { get; set; }
     [ForeignKey("IdMarca")]
-    public required Marca Marca { get; set; }
+    [AllowNull]
+    public Marca Marca { get; set; }
 
     [Required]
     //[ForeignKey("Categorias")]
     public required int IdCategoria { get; set; }
+    
     [ForeignKey("IdCategoria")]
-    public required Categoria Categoria { get; set; }
+    [AllowNull]
+    public Categoria Categoria { get; set; }
 
     [Required]
     //[ForeignKey("Tallas")]
     public required int IdTalla { get; set; }
+
     [ForeignKey("IdTalla")]
-    public required Talla Talla { get; set; }
+    [AllowNull]
+    public Talla Talla { get; set; }
 
     [Required]
     public required int IdProveedor { get; set; }
 
     [ForeignKey("IdProveedor")]
-    public required Proveedor Proveedor { get; set; }
+    [AllowNull]
+    public Proveedor Proveedor { get; set; }
 
     public ICollection<DetallePedido> DetallesPedidos { get; set; } = new List<DetallePedido>();
 

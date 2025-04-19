@@ -26,12 +26,14 @@ public class DetalleVenta
     public required int IdVenta { get; set; }
 
     [ForeignKey("IdVenta")]
-    public required Venta Venta { get; set; }
+    [AllowNull]
+    public Venta Venta { get; set; }
 
     [Required]
     //[ForeignKey("Prendas")]
     public required int IdPrenda { get; set; }
 
     [ForeignKey("IdPrenda")]
-    public required Prenda Prenda { get; set; }
+    [AllowNull]
+    public Prenda Prenda { get; set; }
 }

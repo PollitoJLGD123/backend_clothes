@@ -25,12 +25,14 @@ public class DetalleEntrada
     public required int IdEntrada { get; set; }
 
     [ForeignKey("IdEntrada")]
-    public required Entrada Entrada { get; set; }
+    [AllowNull]
+    public Entrada Entrada { get; set; }
 
     [Required]
     //[ForeignKey("Prendas")]
     public required int IdPrenda { get; set; }
 
     [ForeignKey("IdPrenda")]
-    public required Prenda Prenda { get; set; }
+    [AllowNull]
+    public Prenda Prenda { get; set; }
 }

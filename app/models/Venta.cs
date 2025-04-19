@@ -32,7 +32,8 @@ public class Venta
     public required int IDCliente { get; set; }
 
     [ForeignKey("IDCliente")]
-    public required Cliente Cliente { get; set; }
+    [AllowNull]
+    public Cliente Cliente { get; set; }
     
     [Required]
     [MaxLength(50)]
