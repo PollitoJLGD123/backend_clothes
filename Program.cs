@@ -1,6 +1,7 @@
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using backend_net.app.models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,14 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+
+app.MapGet("/dbconexion", ([FromServices] AppDbContext context) =>
+{
+    context.Database.EnsureCreated();
+    //await context.Database.MigrateAsync(); corre migraciones :vv
+    return Results.Ok("Conexion con la base de datos correcta");
+});
 
 app.Run();
 
