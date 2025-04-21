@@ -1,4 +1,4 @@
-namespace backend_net.app.models;
+namespace backend_net.app.models2;
 
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;

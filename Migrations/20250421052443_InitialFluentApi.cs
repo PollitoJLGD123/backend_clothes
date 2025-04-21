@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend_net.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialFluentApi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,15 +38,15 @@ namespace backend_net.Migrations
                 {
                     IdCliente = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "varchar(50)", nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Apellido = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Email = table.Column<string>(type: "text", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefono = table.Column<string>(type: "char(9)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Direccion = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
+                    Direccion = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DNI = table.Column<string>(type: "char(8)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -71,7 +71,7 @@ namespace backend_net.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Mensaje = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Email = table.Column<string>(type: "text", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -86,7 +86,7 @@ namespace backend_net.Migrations
                 {
                     IdMarca = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "varchar(50)", nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -107,7 +107,7 @@ namespace backend_net.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Direccion = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Telefono = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: false)
+                    Telefono = table.Column<string>(type: "char(9)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DNI = table.Column<string>(type: "char(8)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -132,20 +132,20 @@ namespace backend_net.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Direccion = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Ciudad = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Ciudad = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Distrito = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Distrito = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Email = table.Column<string>(type: "text", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Telefono = table.Column<string>(type: "char(9)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TipoDocumento = table.Column<string>(type: "ENUM('DNI', 'RUC', 'Pasaporte')", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NumeroDocumento = table.Column<string>(type: "varchar(30)", nullable: false)
+                    NumeroDocumento = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    FechaIncidente = table.Column<DateTime>(type: "datetime", nullable: false),
-                    FechaSolicitud = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                    FechaIncidente = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    FechaSolicitud = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValue: new DateTime(2025, 4, 21, 0, 24, 43, 52, DateTimeKind.Local).AddTicks(9267))
                 },
                 constraints: table =>
                 {
@@ -154,7 +154,7 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Rols",
+                name: "Roles",
                 columns: table => new
                 {
                     IdRol = table.Column<int>(type: "int", nullable: false)
@@ -164,7 +164,7 @@ namespace backend_net.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rols", x => x.IdRol);
+                    table.PrimaryKey("PK_Roles", x => x.IdRol);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -176,7 +176,7 @@ namespace backend_net.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NombreTalla = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -186,15 +186,36 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    IdUser = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "text", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Token = table.Column<string>(type: "text", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.IdUser);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Ventas",
                 columns: table => new
                 {
                     IdVenta = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FechaVenta = table.Column<DateTime>(type: "datetime", nullable: false),
+                    FechaVenta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DireccionVenta = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
                     IDCliente = table.Column<int>(type: "int", nullable: false),
                     MetodoPago = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -217,7 +238,7 @@ namespace backend_net.Migrations
                 {
                     IdEntrada = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FechaEntrada = table.Column<DateTime>(type: "datetime", nullable: false),
+                    FechaEntrada = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IdProveedor = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -233,52 +254,25 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Pedidos_Proveedores",
+                name: "PedidosProveedores",
                 columns: table => new
                 {
                     IdPedidoProveedor = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FechaPedido = table.Column<DateTime>(type: "datetime", nullable: false),
+                    FechaPedido = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IdProveedor = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<string>(type: "ENUM('Pendiente', 'Enviado', 'Recibido', 'Anulado')", maxLength: 50, nullable: false)
+                    Estado = table.Column<string>(type: "ENUM('Pendiente', 'Enviado', 'Recibido', 'Anulado')", nullable: false, defaultValue: "Pendiente")
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos_Proveedores", x => x.IdPedidoProveedor);
+                    table.PrimaryKey("PK_PedidosProveedores", x => x.IdPedidoProveedor);
                     table.ForeignKey(
-                        name: "FK_Pedidos_Proveedores_Proveedores_IdProveedor",
+                        name: "FK_PedidosProveedores_Proveedores_IdProveedor",
                         column: x => x.IdProveedor,
                         principalTable: "Proveedores",
                         principalColumn: "IdProveedor",
                         onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    IdUser = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "text", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Token = table.Column<string>(type: "text", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RolIdRol = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.IdUser);
-                    table.ForeignKey(
-                        name: "FK_Users_Rols_RolIdRol",
-                        column: x => x.RolIdRol,
-                        principalTable: "Rols",
-                        principalColumn: "IdRol");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -290,12 +284,12 @@ namespace backend_net.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descripcion = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    Descripcion = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Color = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
+                    Color = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: true),
+                    Stock = table.Column<int>(type: "int", nullable: false),
                     IdMarca = table.Column<int>(type: "int", nullable: false),
                     IdCategoria = table.Column<int>(type: "int", nullable: false),
                     IdTalla = table.Column<int>(type: "int", nullable: false),
@@ -360,9 +354,9 @@ namespace backend_net.Migrations
                 {
                     table.PrimaryKey("PK_Empleados", x => x.IdEmpleado);
                     table.ForeignKey(
-                        name: "FK_Empleados_Rols_IdRol",
+                        name: "FK_Empleados_Roles_IdRol",
                         column: x => x.IdRol,
-                        principalTable: "Rols",
+                        principalTable: "Roles",
                         principalColumn: "IdRol",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -375,27 +369,27 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Detalles_Entradas",
+                name: "DetallesEntradas",
                 columns: table => new
                 {
                     IdDetalleEntrada = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Cantidad = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Cantidad = table.Column<float>(type: "float", nullable: false),
                     PrecioCompra = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IdEntrada = table.Column<int>(type: "int", nullable: false),
                     IdPrenda = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Detalles_Entradas", x => x.IdDetalleEntrada);
+                    table.PrimaryKey("PK_DetallesEntradas", x => x.IdDetalleEntrada);
                     table.ForeignKey(
-                        name: "FK_Detalles_Entradas_Entradas_IdEntrada",
+                        name: "FK_DetallesEntradas_Entradas_IdEntrada",
                         column: x => x.IdEntrada,
                         principalTable: "Entradas",
                         principalColumn: "IdEntrada",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Detalles_Entradas_Prendas_IdPrenda",
+                        name: "FK_DetallesEntradas_Prendas_IdPrenda",
                         column: x => x.IdPrenda,
                         principalTable: "Prendas",
                         principalColumn: "IdPrenda",
@@ -404,26 +398,26 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Detalles_Pedidos",
+                name: "DetallesPedidos",
                 columns: table => new
                 {
                     IdDetallePedido = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Cantidad = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Cantidad = table.Column<float>(type: "float", nullable: false),
                     IdPedidoProveedor = table.Column<int>(type: "int", nullable: false),
                     IdPrenda = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Detalles_Pedidos", x => x.IdDetallePedido);
+                    table.PrimaryKey("PK_DetallesPedidos", x => x.IdDetallePedido);
                     table.ForeignKey(
-                        name: "FK_Detalles_Pedidos_Pedidos_Proveedores_IdPedidoProveedor",
+                        name: "FK_DetallesPedidos_PedidosProveedores_IdPedidoProveedor",
                         column: x => x.IdPedidoProveedor,
-                        principalTable: "Pedidos_Proveedores",
+                        principalTable: "PedidosProveedores",
                         principalColumn: "IdPedidoProveedor",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Detalles_Pedidos_Prendas_IdPrenda",
+                        name: "FK_DetallesPedidos_Prendas_IdPrenda",
                         column: x => x.IdPrenda,
                         principalTable: "Prendas",
                         principalColumn: "IdPrenda",
@@ -432,27 +426,27 @@ namespace backend_net.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Detalles_Ventas",
+                name: "DetallesVentas",
                 columns: table => new
                 {
                     IdDetalleVenta = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Cantidad = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Cantidad = table.Column<float>(type: "float", nullable: false),
                     PrecioVentaReal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IdVenta = table.Column<int>(type: "int", nullable: false),
                     IdPrenda = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Detalles_Ventas", x => x.IdDetalleVenta);
+                    table.PrimaryKey("PK_DetallesVentas", x => x.IdDetalleVenta);
                     table.ForeignKey(
-                        name: "FK_Detalles_Ventas_Prendas_IdPrenda",
+                        name: "FK_DetallesVentas_Prendas_IdPrenda",
                         column: x => x.IdPrenda,
                         principalTable: "Prendas",
                         principalColumn: "IdPrenda",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Detalles_Ventas_Ventas_IdVenta",
+                        name: "FK_DetallesVentas_Ventas_IdVenta",
                         column: x => x.IdVenta,
                         principalTable: "Ventas",
                         principalColumn: "IdVenta",
@@ -523,13 +517,13 @@ namespace backend_net.Migrations
                 columns: new[] { "IdReclamacion", "Apellido", "Ciudad", "Direccion", "Distrito", "Email", "FechaIncidente", "FechaSolicitud", "Nombre", "NumeroDocumento", "Telefono", "TipoDocumento" },
                 values: new object[,]
                 {
-                    { 1, "García", "Lima", "Av. Primavera 123", "Miraflores", "carlos@gmail.com", new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3916), "Carlos", "12345678", "987654321", "DNI" },
-                    { 2, "Sánchez", "Arequipa", "Jr. Los Álamos 456", "Cercado", "ana.sanchez@gmail.com", new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3936), "Ana", "20123456789", "923456789", "RUC" },
-                    { 3, "Torres", "Cusco", "Calle Las Flores 789", "Wanchaq", "luis.torres@gmail.com", new DateTime(2024, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3939), "Luis", "P1234567", "956321478", "Pasaporte" }
+                    { 1, "García", "Lima", "Av. Primavera 123", "Miraflores", "carlos@gmail.com", new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8176), "Carlos", "12345678", "987654321", "DNI" },
+                    { 2, "Sánchez", "Arequipa", "Jr. Los Álamos 456", "Cercado", "ana.sanchez@gmail.com", new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8195), "Ana", "20123456789", "923456789", "RUC" },
+                    { 3, "Torres", "Cusco", "Calle Las Flores 789", "Wanchaq", "luis.torres@gmail.com", new DateTime(2024, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8198), "Luis", "P1234567", "956321478", "Pasaporte" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Rols",
+                table: "Roles",
                 columns: new[] { "IdRol", "Nombre" },
                 values: new object[,]
                 {
@@ -551,12 +545,12 @@ namespace backend_net.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "IdUser", "Email", "Nombre", "Password", "RolIdRol", "Token" },
+                columns: new[] { "IdUser", "Email", "Nombre", "Password", "Token" },
                 values: new object[,]
                 {
-                    { 1, "jose@gmail.com", "Juan", "$2a$11$daR4uA4EVomN8a4jsTp9p.R3Y2tDTd/xcZlqfVGztQpZ6b/jNTU7i", null, null },
-                    { 2, "maria@gmail.com", "Maria", "$2a$11$meWU7/CehvCx852B1CX7P.WMP6P1qv1qtzEJOr1mZq9.Sm.kCFz/m", null, null },
-                    { 3, "pedro@gmail.com", "Pedro", "$2a$11$MYqJx.EOJ2DuxBwgsjoH2uKpBmzLL025YiBUkWBavffnSw/CMbYQu", null, null }
+                    { 1, "jose@gmail.com", "Juan", "$2a$11$wp6DrvzhwfHsk1kNjsgRIedUqgnsphHdpA0A6pb5C06sYWtbPPkn2", null },
+                    { 2, "maria@gmail.com", "Maria", "$2a$11$mVzTBQzYKJVc.M5c.GNOUuG5OTowNSq9JKPdhFk4HEiZucIHHdcEK", null },
+                    { 3, "pedro@gmail.com", "Pedro", "$2a$11$.pIaJC48JES/9F.UvsMSCO/.EV2NXIpGlXgwtdSVb.jiEmTSeOAYW", null }
                 });
 
             migrationBuilder.InsertData(
@@ -580,7 +574,7 @@ namespace backend_net.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Pedidos_Proveedores",
+                table: "PedidosProveedores",
                 columns: new[] { "IdPedidoProveedor", "Estado", "FechaPedido", "IdProveedor" },
                 values: new object[,]
                 {
@@ -620,84 +614,84 @@ namespace backend_net.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Detalles_Entradas",
+                table: "DetallesEntradas",
                 columns: new[] { "IdDetalleEntrada", "Cantidad", "IdEntrada", "IdPrenda", "PrecioCompra" },
                 values: new object[,]
                 {
-                    { 1, 30m, 1, 1, 100m },
-                    { 2, 10m, 1, 2, 100m },
-                    { 3, 10m, 1, 3, 100m },
-                    { 4, 20m, 2, 4, 100m },
-                    { 5, 10m, 2, 5, 100m },
-                    { 6, 10m, 2, 6, 100m },
-                    { 7, 22m, 2, 7, 100m },
-                    { 8, 20m, 3, 8, 100m },
-                    { 9, 11m, 3, 9, 100m },
-                    { 10, 8m, 3, 10, 100m }
+                    { 1, 30f, 1, 1, 100m },
+                    { 2, 10f, 1, 2, 100m },
+                    { 3, 10f, 1, 3, 100m },
+                    { 4, 20f, 2, 4, 100m },
+                    { 5, 10f, 2, 5, 100m },
+                    { 6, 10f, 2, 6, 100m },
+                    { 7, 22f, 2, 7, 100m },
+                    { 8, 20f, 3, 8, 100m },
+                    { 9, 11f, 3, 9, 100m },
+                    { 10, 8f, 3, 10, 100m }
                 });
 
             migrationBuilder.InsertData(
-                table: "Detalles_Pedidos",
+                table: "DetallesPedidos",
                 columns: new[] { "IdDetallePedido", "Cantidad", "IdPedidoProveedor", "IdPrenda" },
                 values: new object[,]
                 {
-                    { 1, 30m, 1, 1 },
-                    { 2, 10m, 1, 2 },
-                    { 3, 10m, 1, 3 },
-                    { 4, 20m, 2, 4 },
-                    { 5, 10m, 2, 5 },
-                    { 6, 10m, 2, 6 },
-                    { 7, 22m, 2, 7 },
-                    { 8, 20m, 3, 8 },
-                    { 9, 11m, 3, 9 },
-                    { 10, 8m, 3, 10 }
+                    { 1, 30f, 1, 1 },
+                    { 2, 10f, 1, 2 },
+                    { 3, 10f, 1, 3 },
+                    { 4, 20f, 2, 4 },
+                    { 5, 10f, 2, 5 },
+                    { 6, 10f, 2, 6 },
+                    { 7, 22f, 2, 7 },
+                    { 8, 20f, 3, 8 },
+                    { 9, 11f, 3, 9 },
+                    { 10, 8f, 3, 10 }
                 });
 
             migrationBuilder.InsertData(
-                table: "Detalles_Ventas",
+                table: "DetallesVentas",
                 columns: new[] { "IdDetalleVenta", "Cantidad", "IdPrenda", "IdVenta", "PrecioVentaReal" },
                 values: new object[,]
                 {
-                    { 1, 30m, 1, 1, 100m },
-                    { 2, 10m, 2, 1, 100m },
-                    { 3, 10m, 3, 1, 100m },
-                    { 4, 20m, 4, 2, 100m },
-                    { 5, 10m, 5, 2, 100m },
-                    { 6, 10m, 6, 2, 100m },
-                    { 7, 22m, 7, 2, 100m },
-                    { 8, 20m, 8, 3, 100m },
-                    { 9, 11m, 9, 3, 100m },
-                    { 10, 8m, 10, 3, 100m }
+                    { 1, 30f, 1, 1, 100m },
+                    { 2, 10f, 2, 1, 100m },
+                    { 3, 10f, 3, 1, 100m },
+                    { 4, 20f, 4, 2, 100m },
+                    { 5, 10f, 5, 2, 100m },
+                    { 6, 10f, 6, 2, 100m },
+                    { 7, 22f, 7, 2, 100m },
+                    { 8, 20f, 8, 3, 100m },
+                    { 9, 11f, 9, 3, 100m },
+                    { 10, 8f, 10, 3, 100m }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Entradas_IdEntrada",
-                table: "Detalles_Entradas",
+                name: "IX_DetallesEntradas_IdEntrada",
+                table: "DetallesEntradas",
                 column: "IdEntrada");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Entradas_IdPrenda",
-                table: "Detalles_Entradas",
+                name: "IX_DetallesEntradas_IdPrenda",
+                table: "DetallesEntradas",
                 column: "IdPrenda");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Pedidos_IdPedidoProveedor",
-                table: "Detalles_Pedidos",
+                name: "IX_DetallesPedidos_IdPedidoProveedor",
+                table: "DetallesPedidos",
                 column: "IdPedidoProveedor");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Pedidos_IdPrenda",
-                table: "Detalles_Pedidos",
+                name: "IX_DetallesPedidos_IdPrenda",
+                table: "DetallesPedidos",
                 column: "IdPrenda");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Ventas_IdPrenda",
-                table: "Detalles_Ventas",
+                name: "IX_DetallesVentas_IdPrenda",
+                table: "DetallesVentas",
                 column: "IdPrenda");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Detalles_Ventas_IdVenta",
-                table: "Detalles_Ventas",
+                name: "IX_DetallesVentas_IdVenta",
+                table: "DetallesVentas",
                 column: "IdVenta");
 
             migrationBuilder.CreateIndex(
@@ -717,8 +711,8 @@ namespace backend_net.Migrations
                 column: "IdProveedor");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedidos_Proveedores_IdProveedor",
-                table: "Pedidos_Proveedores",
+                name: "IX_PedidosProveedores_IdProveedor",
+                table: "PedidosProveedores",
                 column: "IdProveedor");
 
             migrationBuilder.CreateIndex(
@@ -742,11 +736,6 @@ namespace backend_net.Migrations
                 column: "IdTalla");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RolIdRol",
-                table: "Users",
-                column: "RolIdRol");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ventas_IDCliente",
                 table: "Ventas",
                 column: "IDCliente");
@@ -759,13 +748,13 @@ namespace backend_net.Migrations
                 name: "Contactos");
 
             migrationBuilder.DropTable(
-                name: "Detalles_Entradas");
+                name: "DetallesEntradas");
 
             migrationBuilder.DropTable(
-                name: "Detalles_Pedidos");
+                name: "DetallesPedidos");
 
             migrationBuilder.DropTable(
-                name: "Detalles_Ventas");
+                name: "DetallesVentas");
 
             migrationBuilder.DropTable(
                 name: "Empleados");
@@ -777,13 +766,16 @@ namespace backend_net.Migrations
                 name: "Entradas");
 
             migrationBuilder.DropTable(
-                name: "Pedidos_Proveedores");
+                name: "PedidosProveedores");
 
             migrationBuilder.DropTable(
                 name: "Prendas");
 
             migrationBuilder.DropTable(
                 name: "Ventas");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -802,9 +794,6 @@ namespace backend_net.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clientes");
-
-            migrationBuilder.DropTable(
-                name: "Rols");
         }
     }
 }

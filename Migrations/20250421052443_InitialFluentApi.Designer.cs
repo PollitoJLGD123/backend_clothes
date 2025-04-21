@@ -11,9 +11,9 @@ using backend_net.app.models;
 
 namespace backend_net.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20250419060043_Initial")]
-    partial class Initial
+    [DbContext(typeof(DataDbContext))]
+    [Migration("20250421052443_InitialFluentApi")]
+    partial class InitialFluentApi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdCategoria");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categorias", (string)null);
 
                     b.HasData(
                         new
@@ -88,14 +88,17 @@ namespace backend_net.Migrations
                         .HasColumnType("char(8)");
 
                     b.Property<string>("Direccion")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("Telefono")
@@ -104,7 +107,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdCliente");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
 
                     b.HasData(
                         new
@@ -154,8 +157,7 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Mensaje")
                         .IsRequired()
@@ -173,7 +175,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdContacto");
 
-                    b.ToTable("Contactos");
+                    b.ToTable("Contactos", (string)null);
 
                     b.HasData(
                         new
@@ -213,8 +215,8 @@ namespace backend_net.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdDetalleEntrada"));
 
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Cantidad")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdEntrada")
                         .HasColumnType("int");
@@ -231,13 +233,13 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdPrenda");
 
-                    b.ToTable("Detalles_Entradas");
+                    b.ToTable("DetallesEntradas", (string)null);
 
                     b.HasData(
                         new
                         {
                             IdDetalleEntrada = 1,
-                            Cantidad = 30m,
+                            Cantidad = 30f,
                             IdEntrada = 1,
                             IdPrenda = 1,
                             PrecioCompra = 100m
@@ -245,7 +247,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 2,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdEntrada = 1,
                             IdPrenda = 2,
                             PrecioCompra = 100m
@@ -253,7 +255,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 3,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdEntrada = 1,
                             IdPrenda = 3,
                             PrecioCompra = 100m
@@ -261,7 +263,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 4,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdEntrada = 2,
                             IdPrenda = 4,
                             PrecioCompra = 100m
@@ -269,7 +271,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 5,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdEntrada = 2,
                             IdPrenda = 5,
                             PrecioCompra = 100m
@@ -277,7 +279,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 6,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdEntrada = 2,
                             IdPrenda = 6,
                             PrecioCompra = 100m
@@ -285,7 +287,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 7,
-                            Cantidad = 22m,
+                            Cantidad = 22f,
                             IdEntrada = 2,
                             IdPrenda = 7,
                             PrecioCompra = 100m
@@ -293,7 +295,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 8,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdEntrada = 3,
                             IdPrenda = 8,
                             PrecioCompra = 100m
@@ -301,7 +303,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 9,
-                            Cantidad = 11m,
+                            Cantidad = 11f,
                             IdEntrada = 3,
                             IdPrenda = 9,
                             PrecioCompra = 100m
@@ -309,7 +311,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleEntrada = 10,
-                            Cantidad = 8m,
+                            Cantidad = 8f,
                             IdEntrada = 3,
                             IdPrenda = 10,
                             PrecioCompra = 100m
@@ -324,8 +326,8 @@ namespace backend_net.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdDetallePedido"));
 
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Cantidad")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdPedidoProveedor")
                         .HasColumnType("int");
@@ -339,76 +341,76 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdPrenda");
 
-                    b.ToTable("Detalles_Pedidos");
+                    b.ToTable("DetallesPedidos", (string)null);
 
                     b.HasData(
                         new
                         {
                             IdDetallePedido = 1,
-                            Cantidad = 30m,
+                            Cantidad = 30f,
                             IdPedidoProveedor = 1,
                             IdPrenda = 1
                         },
                         new
                         {
                             IdDetallePedido = 2,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPedidoProveedor = 1,
                             IdPrenda = 2
                         },
                         new
                         {
                             IdDetallePedido = 3,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPedidoProveedor = 1,
                             IdPrenda = 3
                         },
                         new
                         {
                             IdDetallePedido = 4,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdPedidoProveedor = 2,
                             IdPrenda = 4
                         },
                         new
                         {
                             IdDetallePedido = 5,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPedidoProveedor = 2,
                             IdPrenda = 5
                         },
                         new
                         {
                             IdDetallePedido = 6,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPedidoProveedor = 2,
                             IdPrenda = 6
                         },
                         new
                         {
                             IdDetallePedido = 7,
-                            Cantidad = 22m,
+                            Cantidad = 22f,
                             IdPedidoProveedor = 2,
                             IdPrenda = 7
                         },
                         new
                         {
                             IdDetallePedido = 8,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdPedidoProveedor = 3,
                             IdPrenda = 8
                         },
                         new
                         {
                             IdDetallePedido = 9,
-                            Cantidad = 11m,
+                            Cantidad = 11f,
                             IdPedidoProveedor = 3,
                             IdPrenda = 9
                         },
                         new
                         {
                             IdDetallePedido = 10,
-                            Cantidad = 8m,
+                            Cantidad = 8f,
                             IdPedidoProveedor = 3,
                             IdPrenda = 10
                         });
@@ -422,8 +424,8 @@ namespace backend_net.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdDetalleVenta"));
 
-                    b.Property<decimal>("Cantidad")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Cantidad")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdPrenda")
                         .HasColumnType("int");
@@ -440,13 +442,13 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdVenta");
 
-                    b.ToTable("Detalles_Ventas");
+                    b.ToTable("DetallesVentas", (string)null);
 
                     b.HasData(
                         new
                         {
                             IdDetalleVenta = 1,
-                            Cantidad = 30m,
+                            Cantidad = 30f,
                             IdPrenda = 1,
                             IdVenta = 1,
                             PrecioVentaReal = 100m
@@ -454,7 +456,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 2,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPrenda = 2,
                             IdVenta = 1,
                             PrecioVentaReal = 100m
@@ -462,7 +464,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 3,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPrenda = 3,
                             IdVenta = 1,
                             PrecioVentaReal = 100m
@@ -470,7 +472,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 4,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdPrenda = 4,
                             IdVenta = 2,
                             PrecioVentaReal = 100m
@@ -478,7 +480,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 5,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPrenda = 5,
                             IdVenta = 2,
                             PrecioVentaReal = 100m
@@ -486,7 +488,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 6,
-                            Cantidad = 10m,
+                            Cantidad = 10f,
                             IdPrenda = 6,
                             IdVenta = 2,
                             PrecioVentaReal = 100m
@@ -494,7 +496,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 7,
-                            Cantidad = 22m,
+                            Cantidad = 22f,
                             IdPrenda = 7,
                             IdVenta = 2,
                             PrecioVentaReal = 100m
@@ -502,7 +504,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 8,
-                            Cantidad = 20m,
+                            Cantidad = 20f,
                             IdPrenda = 8,
                             IdVenta = 3,
                             PrecioVentaReal = 100m
@@ -510,7 +512,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 9,
-                            Cantidad = 11m,
+                            Cantidad = 11f,
                             IdPrenda = 9,
                             IdVenta = 3,
                             PrecioVentaReal = 100m
@@ -518,7 +520,7 @@ namespace backend_net.Migrations
                         new
                         {
                             IdDetalleVenta = 10,
-                            Cantidad = 8m,
+                            Cantidad = 8f,
                             IdPrenda = 10,
                             IdVenta = 3,
                             PrecioVentaReal = 100m
@@ -579,7 +581,7 @@ namespace backend_net.Migrations
                     b.HasIndex("IdUser")
                         .IsUnique();
 
-                    b.ToTable("Empleados");
+                    b.ToTable("Empleados", (string)null);
 
                     b.HasData(
                         new
@@ -629,7 +631,7 @@ namespace backend_net.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdEntrada"));
 
                     b.Property<DateTime>("FechaEntrada")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("IdProveedor")
                         .HasColumnType("int");
@@ -638,7 +640,7 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdProveedor");
 
-                    b.ToTable("Entradas");
+                    b.ToTable("Entradas", (string)null);
 
                     b.HasData(
                         new
@@ -671,11 +673,12 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("IdMarca");
 
-                    b.ToTable("Marcas");
+                    b.ToTable("Marcas", (string)null);
 
                     b.HasData(
                         new
@@ -735,11 +738,12 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("ENUM('Pendiente', 'Enviado', 'Recibido', 'Anulado')");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("ENUM('Pendiente', 'Enviado', 'Recibido', 'Anulado')")
+                        .HasDefaultValue("Pendiente");
 
                     b.Property<DateTime>("FechaPedido")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("IdProveedor")
                         .HasColumnType("int");
@@ -748,7 +752,7 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdProveedor");
 
-                    b.ToTable("Pedidos_Proveedores");
+                    b.ToTable("PedidosProveedores", (string)null);
 
                     b.HasData(
                         new
@@ -783,10 +787,12 @@ namespace backend_net.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdPrenda"));
 
                     b.Property<string>("Color")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
@@ -811,6 +817,7 @@ namespace backend_net.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("Stock")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("IdPrenda");
@@ -823,7 +830,7 @@ namespace backend_net.Migrations
 
                     b.HasIndex("IdTalla");
 
-                    b.ToTable("Prendas");
+                    b.ToTable("Prendas", (string)null);
 
                     b.HasData(
                         new
@@ -1029,12 +1036,11 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Telefono")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("varchar(9)");
+                        .HasColumnType("char(9)");
 
                     b.HasKey("IdProveedor");
 
-                    b.ToTable("Proveedores");
+                    b.ToTable("Proveedores", (string)null);
 
                     b.HasData(
                         new
@@ -1084,8 +1090,8 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Ciudad")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
@@ -1094,19 +1100,20 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Distrito")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("FechaIncidente")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("FechaSolicitud")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("datetime(6)")
+                        .HasDefaultValue(new DateTime(2025, 4, 21, 0, 24, 43, 52, DateTimeKind.Local).AddTicks(9267));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -1115,7 +1122,8 @@ namespace backend_net.Migrations
 
                     b.Property<string>("NumeroDocumento")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Telefono")
                         .IsRequired()
@@ -1127,7 +1135,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdReclamacion");
 
-                    b.ToTable("Reclamaciones");
+                    b.ToTable("Reclamaciones", (string)null);
 
                     b.HasData(
                         new
@@ -1139,7 +1147,7 @@ namespace backend_net.Migrations
                             Distrito = "Miraflores",
                             Email = "carlos@gmail.com",
                             FechaIncidente = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FechaSolicitud = new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3916),
+                            FechaSolicitud = new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8176),
                             Nombre = "Carlos",
                             NumeroDocumento = "12345678",
                             Telefono = "987654321",
@@ -1154,7 +1162,7 @@ namespace backend_net.Migrations
                             Distrito = "Cercado",
                             Email = "ana.sanchez@gmail.com",
                             FechaIncidente = new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FechaSolicitud = new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3936),
+                            FechaSolicitud = new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8195),
                             Nombre = "Ana",
                             NumeroDocumento = "20123456789",
                             Telefono = "923456789",
@@ -1169,7 +1177,7 @@ namespace backend_net.Migrations
                             Distrito = "Wanchaq",
                             Email = "luis.torres@gmail.com",
                             FechaIncidente = new DateTime(2024, 3, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FechaSolicitud = new DateTime(2025, 4, 19, 1, 0, 43, 637, DateTimeKind.Local).AddTicks(3939),
+                            FechaSolicitud = new DateTime(2025, 4, 21, 0, 24, 43, 420, DateTimeKind.Local).AddTicks(8198),
                             Nombre = "Luis",
                             NumeroDocumento = "P1234567",
                             Telefono = "956321478",
@@ -1192,7 +1200,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdRol");
 
-                    b.ToTable("Rols");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -1216,6 +1224,7 @@ namespace backend_net.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdTalla"));
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
@@ -1226,7 +1235,7 @@ namespace backend_net.Migrations
 
                     b.HasKey("IdTalla");
 
-                    b.ToTable("Tallas");
+                    b.ToTable("Tallas", (string)null);
 
                     b.HasData(
                         new
@@ -1280,19 +1289,15 @@ namespace backend_net.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<int?>("RolIdRol")
-                        .HasColumnType("int");
 
                     b.Property<string>("Token")
                         .HasColumnType("text");
 
                     b.HasKey("IdUser");
 
-                    b.HasIndex("RolIdRol");
-
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -1300,21 +1305,21 @@ namespace backend_net.Migrations
                             IdUser = 1,
                             Email = "jose@gmail.com",
                             Nombre = "Juan",
-                            Password = "$2a$11$daR4uA4EVomN8a4jsTp9p.R3Y2tDTd/xcZlqfVGztQpZ6b/jNTU7i"
+                            Password = "$2a$11$wp6DrvzhwfHsk1kNjsgRIedUqgnsphHdpA0A6pb5C06sYWtbPPkn2"
                         },
                         new
                         {
                             IdUser = 2,
                             Email = "maria@gmail.com",
                             Nombre = "Maria",
-                            Password = "$2a$11$meWU7/CehvCx852B1CX7P.WMP6P1qv1qtzEJOr1mZq9.Sm.kCFz/m"
+                            Password = "$2a$11$mVzTBQzYKJVc.M5c.GNOUuG5OTowNSq9JKPdhFk4HEiZucIHHdcEK"
                         },
                         new
                         {
                             IdUser = 3,
                             Email = "pedro@gmail.com",
                             Nombre = "Pedro",
-                            Password = "$2a$11$MYqJx.EOJ2DuxBwgsjoH2uKpBmzLL025YiBUkWBavffnSw/CMbYQu"
+                            Password = "$2a$11$.pIaJC48JES/9F.UvsMSCO/.EV2NXIpGlXgwtdSVb.jiEmTSeOAYW"
                         });
                 });
 
@@ -1332,7 +1337,7 @@ namespace backend_net.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<DateTime>("FechaVenta")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("IDCliente")
                         .HasColumnType("int");
@@ -1342,14 +1347,16 @@ namespace backend_net.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<decimal?>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("Total")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(0m);
 
                     b.HasKey("IdVenta");
 
                     b.HasIndex("IDCliente");
 
-                    b.ToTable("Ventas");
+                    b.ToTable("Ventas", (string)null);
 
                     b.HasData(
                         new
@@ -1384,7 +1391,7 @@ namespace backend_net.Migrations
             modelBuilder.Entity("backend_net.app.models.DetalleEntrada", b =>
                 {
                     b.HasOne("backend_net.app.models.Entrada", "Entrada")
-                        .WithMany("DetallesEntrada")
+                        .WithMany("DetallesEntradas")
                         .HasForeignKey("IdEntrada")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1422,13 +1429,13 @@ namespace backend_net.Migrations
             modelBuilder.Entity("backend_net.app.models.DetalleVenta", b =>
                 {
                     b.HasOne("backend_net.app.models.Prenda", "Prenda")
-                        .WithMany()
+                        .WithMany("DetallesVentas")
                         .HasForeignKey("IdPrenda")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend_net.app.models.Venta", "Venta")
-                        .WithMany("DetallesVenta")
+                        .WithMany("DetallesVentas")
                         .HasForeignKey("IdVenta")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1441,7 +1448,7 @@ namespace backend_net.Migrations
             modelBuilder.Entity("backend_net.app.models.Empleado", b =>
                 {
                     b.HasOne("backend_net.app.models.Rol", "Rol")
-                        .WithMany()
+                        .WithMany("Empleados")
                         .HasForeignKey("IdRol")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1514,17 +1521,10 @@ namespace backend_net.Migrations
                     b.Navigation("Talla");
                 });
 
-            modelBuilder.Entity("backend_net.app.models.User", b =>
-                {
-                    b.HasOne("backend_net.app.models.Rol", null)
-                        .WithMany("Users")
-                        .HasForeignKey("RolIdRol");
-                });
-
             modelBuilder.Entity("backend_net.app.models.Venta", b =>
                 {
                     b.HasOne("backend_net.app.models.Cliente", "Cliente")
-                        .WithMany("Prendas")
+                        .WithMany("Ventas")
                         .HasForeignKey("IDCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1539,12 +1539,12 @@ namespace backend_net.Migrations
 
             modelBuilder.Entity("backend_net.app.models.Cliente", b =>
                 {
-                    b.Navigation("Prendas");
+                    b.Navigation("Ventas");
                 });
 
             modelBuilder.Entity("backend_net.app.models.Entrada", b =>
                 {
-                    b.Navigation("DetallesEntrada");
+                    b.Navigation("DetallesEntradas");
                 });
 
             modelBuilder.Entity("backend_net.app.models.Marca", b =>
@@ -1562,6 +1562,8 @@ namespace backend_net.Migrations
                     b.Navigation("DetallesEntradas");
 
                     b.Navigation("DetallesPedidos");
+
+                    b.Navigation("DetallesVentas");
                 });
 
             modelBuilder.Entity("backend_net.app.models.Proveedor", b =>
@@ -1575,7 +1577,7 @@ namespace backend_net.Migrations
 
             modelBuilder.Entity("backend_net.app.models.Rol", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Empleados");
                 });
 
             modelBuilder.Entity("backend_net.app.models.Talla", b =>
@@ -1590,7 +1592,7 @@ namespace backend_net.Migrations
 
             modelBuilder.Entity("backend_net.app.models.Venta", b =>
                 {
-                    b.Navigation("DetallesVenta");
+                    b.Navigation("DetallesVentas");
                 });
 #pragma warning restore 612, 618
         }
